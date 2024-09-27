@@ -1,0 +1,28 @@
+﻿@page "/counter"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@inject HttpClient Http
+@using System.Net.Http.Headers;
+@inject IJSRuntime JS
+
+
+
+<PageTitle>Registro</PageTitle>
+
+<Registro/>
+
+<button class="btn btn-primary" onclick="UsoSeguridad">Click</button>
+
+@code {
+	string token;
+	string RespuestaControlador;
+	async Task UsoSeguridad()
+	{
+		token = await JS.InvokeAsync<string>("localStorage.getItem", "Token");
+		Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+		var respuestaBasedatos = await Http.GetStringAsync("api/Usuario/ConexionServidor");
+		RespuestaControlador = respuestaBasedatos;
+
+	}
+}
+

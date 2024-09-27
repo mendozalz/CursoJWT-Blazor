@@ -1,0 +1,11 @@
+﻿@page "/"
+
+<Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
+	<Authorized>
+		<p>Bienvenido @context.User.Identity?.Name!</p>
+		<Cerrarsesion/> 
+	</Authorized>
+	<NotAuthorized>
+		<Login/>
+	</NotAuthorized>
+</Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
